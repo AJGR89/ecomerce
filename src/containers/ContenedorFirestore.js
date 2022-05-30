@@ -201,7 +201,7 @@ export class CarritoFirestore {
 
       const updated_at = Date.now();
 
-      // console.log("carrito2 -->",carrito);
+      console.log("carrito2 -->",carrito);
       let doc = this.collection.doc(`${id}`);
       let item = await doc.update({
         products: products,

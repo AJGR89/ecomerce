@@ -1,5 +1,4 @@
-import Contenedor from "./libs/Contenedor";
-import Carrito from "./libs/Carrito";
+import {ProductosArchivo,CarritoArchivo} from "./containers/ContenedorArchivo";
 
 const product1 = {
   name: "Taladro",
@@ -27,8 +26,8 @@ const product3 = {
   stock: 500,
 };
 
-export const myContenedor = new Contenedor("productos.txt");
-export const myCarritos = new Carrito();
+export const myProducts = new ProductosArchivo("productos.txt");
+export const myCarritos = new CarritoArchivo("carrito.txt");
 // myContenedor.save(product1);
 //  myContenedor.save(product2);
 // myContenedor.save(product3);

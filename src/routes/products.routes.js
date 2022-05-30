@@ -1,7 +1,6 @@
 import { Router } from "express";
 import {checkAuth} from "../middlewares/auth"
-
-import {myContenedor} from "../database"
+import {myProducts} from "../daos/productos.dao"
 
 const router = Router();
 
@@ -12,7 +11,7 @@ router.get("/", async (req, res) => {
     
     if (!id) 
     {
-      const products = await myContenedor.getAll();
+      const products = await myProducts.getAll();
       console.log("get all",products)
       const response = {
         status: "success",
@@ -22,7 +21,7 @@ router.get("/", async (req, res) => {
       return
     } else 
     {
-      const product = await myContenedor.getById(id);
+      const product = await myProducts.getById(id);
       console.log(product);
       if (product == null) {
         const response = {
@@ -50,7 +49,7 @@ router.get("/", async (req, res) => {
 router.post("/", checkAuth ,async (req, res) => {
   try {
     const product = req.body;
-    const newProduct = await myContenedor.save(product);
+    const newProduct = await myProducts.save(product);
 
     if (newProduct != null) {
       const response={
@@ -80,7 +79,7 @@ router.put("/:id", checkAuth , async (req, res) => {
   try {
     const id = req.params.id;
     const product = req.body;
-    const updateProduct = myContenedor.updateById(id, product);
+    const updateProduct = myProducts.updateById(id, product);
     
     if (updateProduct) {
       const response={
@@ -109,7 +108,7 @@ router.put("/:id", checkAuth , async (req, res) => {
 router.delete("/:id", checkAuth , async (req, res) => {
   try {
     const id = req.params.id;
-    const deleteProduct = await myContenedor.deleteById(id);
+    const deleteProduct = await myProducts.deleteById(id);
     if (deleteProduct) {
       const response={
         status:"succsess",

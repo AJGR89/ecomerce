@@ -1,6 +1,7 @@
 import { response } from "express";
 import { Router } from "express";
-import { myCarritos, myContenedor } from "../database";
+import { myCarritos} from "../daos/carrito.dao";
+import {myProducts} from "../daos/productos.dao"
 
 const router = Router();
 
@@ -60,11 +61,32 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+// GET ALL
+router.get("/",async(req,res)=>{
+  try {
+    const carritos = await myCarritos.getAll();
+    const response = {
+      status: "success",
+      data: {
+        carritos: carritos,
+      },
+    };
+    res.status(200).json(response);
+  } catch (error) {
+    console.log(error)
+    const response = {
+      status: "error",
+      data: "error",
+    };
+    res.status(500).json(response);
+  }
+});
+
 //GET PRODUCTS FROM CARRITO
 router.get("/:id/productos", async (req, res) => {
   try {
     const id = req.params.id;
-    const carrito = myCarritos.getCarritoById(id);
+    const carrito = await myCarritos.getCarritoById(id);
     if (carrito == null) {
       const response = {
         status: "error",
@@ -96,8 +118,11 @@ router.post("/:id/productos", async (req, res) => {
     const id = req.params.id;
     const id_prod = req.body.id;
     
-    const carrito = myCarritos.getCarritoById(id);
-    const product = myContenedor.getById(id_prod);
+    const carrito = await myCarritos.getCarritoById(id);
+    const product = await myProducts.getById(id_prod);
+
+    // console.log("carrito --> ",carrito);
+    // console.log("product --> ",product);
 
     if (carrito == null) {
       const response = {
@@ -147,8 +172,8 @@ router.delete("/:id/productos/:id_prod", async (req, res) => {
 
     console.log("id carrito: ",id,"\nid producto: ",id_prod);
 
-    const carrito = myCarritos.getCarritoById(id);
-    const product = myContenedor.getById(id_prod);
+    const carrito = await myCarritos.getCarritoById(id);
+    const product = await myProducts.getById(id_prod);
     if (carrito == null) {
       const response = {
         status: "error",

@@ -2,7 +2,6 @@ import path from "path";
 import express from "express";
 import productsRoutes from "./routes/products.routes";
 import carritoRoutes from "./routes/carrito.routes";
-const { create } = require("express-handlebars");
 
 const app = express();
 

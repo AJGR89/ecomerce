@@ -147,14 +147,22 @@ export class CarritoFirestore {
   async getCarritoById(id) {
     try {
       let carritos = await this.collection.get();
-      //   console.log("carritos-->",carritos)
+        console.log("carritos---->",carritos)
       carritos = carritos.docs.map((doc) => ({
         id: doc.id,
         data: doc.data(),
       }));
       let carrito = await carritos.find((elem) => elem.id == id);
-      //   console.log("carrito-->",carrito)
-      return carrito;
+      let newCarrito ={
+        id: carrito.id,
+        products: carrito.data.products,
+        updated_at:carrito.data.updated_at,
+        created_at: carrito.data.created_at,
+        
+      }
+      
+      console.log("carrito--->",newCarrito)
+      return newCarrito;
     } catch (error) {
       console.log(error);
       return false;
@@ -180,7 +188,7 @@ export class CarritoFirestore {
   /* GET PRODUCTOS FROM ID CARRITO */
   async getProductsFromCarritoId(id) {
     let carrito = await this.getCarritoById(id);
-    console.log("Carrito: ", carrito);
+    console.log("Carrito GETS: ", carrito);
     if (carrito == null) return [];
     console.log("Productos: ", carrito.products);
     return carrito.products;

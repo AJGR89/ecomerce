@@ -95,7 +95,7 @@ router.get("/:id/productos", async (req, res) => {
       res.status(404).json(response);
       return;
     }
-    const products = carrito.data.products;
+    const products = carrito.products;
     const response = {
       status: "success",
       data: {

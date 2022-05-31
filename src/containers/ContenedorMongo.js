@@ -3,7 +3,6 @@ import { myProducts } from "../daos/productos.dao";
 import { MONGODB_URI } from "../config";
 import Product from "../models/Product"
 import Carrito from "../models/Carrito"
-import { myCarritos } from "../database";
 
 // CLASS PRODUCTS MONGO
 export class ProductosMongo {

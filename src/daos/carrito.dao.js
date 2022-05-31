@@ -29,4 +29,12 @@ if (SOURCE_DATA == "FILE_SYSTEM") {
     });
 } else if (SOURCE_DATA == "MY_SQL") {
 } else if (SOURCE_DATA == "SQLITE") {
+  import("../containers/ContenedorSqlite")
+  .then(({ CarritoSqlite}) => {
+    const {db_sqlite3} = require('../containers/config')
+    myCarritos = new CarritoSqlite(db_sqlite3,'carritos','products-carrito');
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 }

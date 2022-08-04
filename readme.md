@@ -151,7 +151,7 @@ Desarrollo backend curso coderhouse
   	}
   }
     ```
-  ````
+
 - **POST api/carrito/:id/productos ->** add product to carrito using id carrito an id product
   - _request body example:_
   ```json
